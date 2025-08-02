@@ -17,29 +17,29 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 345 83% 47%;
+    --primary: 355 70% 40%;
     --primary-foreground: 0 0% 98%;
-    --primary-hover: 345 83% 42%;
+    --primary-hover: 355 70% 35%;
 
-    --secondary: 345 25% 95%;
-    --secondary-foreground: 345 83% 47%;
+    --secondary: 355 20% 95%;
+    --secondary-foreground: 355 70% 40%;
 
-    --muted: 345 15% 96%;
-    --muted-foreground: 345 8% 46%;
+    --muted: 355 15% 96%;
+    --muted-foreground: 355 8% 46%;
 
-    --accent: 345 25% 95%;
-    --accent-foreground: 345 83% 47%;
+    --accent: 355 20% 95%;
+    --accent-foreground: 355 70% 40%;
 
-    --university: 345 83% 47%;
+    --university: 355 70% 40%;
     --university-foreground: 0 0% 98%;
-    --university-dark: 345 83% 37%;
+    --university-dark: 355 70% 30%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 345 32% 91%;
-    --input: 345 32% 95%;
-    --ring: 345 83% 47%;
+    --border: 355 32% 91%;
+    --input: 355 32% 95%;
+    --ring: 355 70% 40%;
 
     --radius: 0.5rem;
 
@@ -61,38 +61,38 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 345 83% 8%;
+    --background: 355 70% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 345 83% 12%;
+    --card: 355 70% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 345 83% 12%;
+    --popover: 355 70% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 345 83% 67%;
-    --primary-foreground: 345 83% 8%;
-    --primary-hover: 345 83% 72%;
+    --primary: 355 70% 65%;
+    --primary-foreground: 355 70% 8%;
+    --primary-hover: 355 70% 70%;
 
-    --secondary: 345 32% 17%;
+    --secondary: 355 32% 17%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 345 32% 17%;
-    --muted-foreground: 345 20% 65%;
+    --muted: 355 32% 17%;
+    --muted-foreground: 355 20% 65%;
 
-    --accent: 345 32% 17%;
+    --accent: 355 32% 17%;
     --accent-foreground: 0 0% 98%;
 
-    --university: 345 83% 67%;
-    --university-foreground: 345 83% 8%;
-    --university-dark: 345 83% 57%;
+    --university: 355 70% 65%;
+    --university-foreground: 355 70% 8%;
+    --university-dark: 355 70% 55%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 345 32% 17%;
-    --input: 345 32% 17%;
-    --ring: 345 83% 67%;
+    --border: 355 32% 17%;
+    --input: 355 32% 17%;
+    --ring: 355 70% 65%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
