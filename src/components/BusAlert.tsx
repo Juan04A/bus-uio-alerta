@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Clock, MapPin, Bus, User, Settings, LogOut } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Bell, Clock, MapPin, Bus, User, Settings, LogOut, Map } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import MapView from "./MapView";
 
 interface BusRoute {
   id: string;
@@ -101,7 +103,7 @@ const BusAlert = ({ username, onLogout }: BusAlertProps) => {
     <div className="min-h-screen bg-gradient-to-br from-university/5 to-university/10">
       {/* Header */}
       <div className="bg-university text-white p-4 shadow-lg">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-white/20 p-2 rounded-full">
               <Bus className="w-6 h-6" />
@@ -129,88 +131,109 @@ const BusAlert = ({ username, onLogout }: BusAlertProps) => {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto p-4 space-y-6">
-        <div className="text-center py-6">
-          <h2 className="text-2xl font-bold text-university mb-2">
-            Rutas de Bus Disponibles
-          </h2>
-          <p className="text-muted-foreground">
-            Activa las notificaciones para recibir alertas cuando tu bus esté cerca
-          </p>
-        </div>
+      {/* Content with Tabs */}
+      <div className="max-w-6xl mx-auto p-4">
+        <Tabs defaultValue="routes" className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-6">
+            <TabsTrigger value="routes" className="flex items-center space-x-2">
+              <Bus className="w-4 h-4" />
+              <span>Rutas</span>
+            </TabsTrigger>
+            <TabsTrigger value="map" className="flex items-center space-x-2">
+              <Map className="w-4 h-4" />
+              <span>Mapa</span>
+            </TabsTrigger>
+          </TabsList>
 
-        <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-          {busRoutes.map((route) => (
-            <Card key={route.id} className="shadow-md hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <CardTitle className="text-lg text-university">
-                      {route.name}
-                    </CardTitle>
-                    <div className="flex items-center space-x-2">
-                      <Badge 
-                        className={`${getStatusColor(route.status)} text-white`}
-                      >
-                        {getStatusText(route.status)}
-                      </Badge>
-                    </div>
-                  </div>
-                  <Button
-                    variant={notifications.includes(route.id) ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => toggleNotification(route.id)}
-                    className={notifications.includes(route.id) ? "bg-university hover:bg-university-dark" : ""}
-                  >
-                    <Bell className={`w-4 h-4 ${notifications.includes(route.id) ? 'text-white' : ''}`} />
-                  </Button>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-3">
-                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                  <MapPin className="w-4 h-4" />
-                  <span>{route.destination}</span>
-                </div>
-                
-                <div className="flex items-center space-x-2 text-sm">
-                  <Clock className="w-4 h-4 text-university" />
-                  <span className="font-medium">Próxima salida: {route.nextArrival}</span>
-                </div>
-                
-                <div className="p-3 bg-university/5 rounded-lg">
-                  <p className="text-sm text-center">
-                    <span className="font-medium text-university">
-                      {route.estimatedTime} minutos
-                    </span>
-                    <span className="text-muted-foreground ml-1">
-                      estimados
-                    </span>
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Active notifications info */}
-        {notifications.length > 0 && (
-          <Card className="bg-university/5 border-university/20">
-            <CardContent className="p-4">
-              <div className="flex items-center space-x-2 mb-2">
-                <Bell className="w-5 h-5 text-university" />
-                <span className="font-medium text-university">
-                  Notificaciones Activas
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Tienes {notifications.length} ruta{notifications.length > 1 ? 's' : ''} con notificaciones activadas. 
-                Recibirás alertas cuando los buses estén cerca de tu parada.
+          <TabsContent value="routes" className="space-y-6">
+            <div className="text-center py-6">
+              <h2 className="text-2xl font-bold text-university mb-2">
+                Rutas de Bus Disponibles
+              </h2>
+              <p className="text-muted-foreground">
+                Activa las notificaciones para recibir alertas cuando tu bus esté cerca
               </p>
-            </CardContent>
-          </Card>
-        )}
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+              {busRoutes.map((route) => (
+                <Card key={route.id} className="shadow-md hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="space-y-1">
+                        <CardTitle className="text-lg text-university">
+                          {route.name}
+                        </CardTitle>
+                        <div className="flex items-center space-x-2">
+                          <Badge 
+                            className={`${getStatusColor(route.status)} text-white`}
+                          >
+                            {getStatusText(route.status)}
+                          </Badge>
+                        </div>
+                      </div>
+                      <Button
+                        variant={notifications.includes(route.id) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => toggleNotification(route.id)}
+                        className={notifications.includes(route.id) ? "bg-university hover:bg-university-dark" : ""}
+                      >
+                        <Bell className={`w-4 h-4 ${notifications.includes(route.id) ? 'text-white' : ''}`} />
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                      <MapPin className="w-4 h-4" />
+                      <span>{route.destination}</span>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2 text-sm">
+                      <Clock className="w-4 h-4 text-university" />
+                      <span className="font-medium">Próxima salida: {route.nextArrival}</span>
+                    </div>
+                    
+                    <div className="p-3 bg-university/5 rounded-lg">
+                      <p className="text-sm text-center">
+                        <span className="font-medium text-university">
+                          {route.estimatedTime} minutos
+                        </span>
+                        <span className="text-muted-foreground ml-1">
+                          estimados
+                        </span>
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Active notifications info */}
+            {notifications.length > 0 && (
+              <Card className="bg-university/5 border-university/20">
+                <CardContent className="p-4">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Bell className="w-5 h-5 text-university" />
+                    <span className="font-medium text-university">
+                      Notificaciones Activas
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Tienes {notifications.length} ruta{notifications.length > 1 ? 's' : ''} con notificaciones activadas. 
+                    Recibirás alertas cuando los buses estén cerca de tu parada.
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          <TabsContent value="map">
+            <div className="rounded-lg overflow-hidden border shadow-lg" style={{ height: 'calc(100vh - 200px)' }}>
+              <MapView />
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
