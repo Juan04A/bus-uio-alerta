@@ -1,26 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin } from "lucide-react";
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-// Leaflet icon fix for webpack
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
-const DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
-
 const MapView = () => {
+  // Fix for default markers in react-leaflet
+  useEffect(() => {
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+      iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    });
+  }, []);
+
   // Coordenadas de la UEES en Samborondón, Guayaquil
   const UEES_COORDINATES: [number, number] = [-2.1325, -79.8681];
 
@@ -49,13 +44,13 @@ const MapView = () => {
         center={UEES_COORDINATES}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
+        scrollWheelZoom={true}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         
-        {/* Marcador principal de la UEES */}
         <Marker position={UEES_COORDINATES}>
           <Popup>
             <div className="p-2">
@@ -66,7 +61,6 @@ const MapView = () => {
           </Popup>
         </Marker>
 
-        {/* Marcadores de paradas de bus */}
         {busStops.map((stop, index) => (
           <Marker key={index} position={stop.coords}>
             <Popup>
@@ -80,7 +74,6 @@ const MapView = () => {
         ))}
       </MapContainer>
       
-      {/* Overlay con información */}
       <div className="absolute top-4 left-4 z-[1000]">
         <Card className="bg-white/95 backdrop-blur-sm shadow-lg">
           <CardContent className="p-4">
