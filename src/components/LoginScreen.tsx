@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lock, Bus, Bell } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import ueesLogo from "@/assets/uees-logo.png";
 
 interface LoginScreenProps {
   onLogin: (username: string, password: string) => void;
@@ -51,7 +50,7 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center space-x-3">
               <div className="bg-white/20 p-3 rounded-full">
-                <img src={ueesLogo} alt="UEES Logo" className="w-10 h-10 rounded object-cover" />
+                <Bus className="w-8 h-8 text-white" />
               </div>
               <div className="text-white">
                 <h1 className="text-2xl font-bold">UEES</h1>
