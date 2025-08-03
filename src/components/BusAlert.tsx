@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Bell, Clock, MapPin, Bus, User, Settings, LogOut, Map } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import MapView from "./MapView";
+import ueesLogo from "@/assets/uees-logo.png";
 
 interface BusRoute {
   id: string;
@@ -106,7 +107,7 @@ const BusAlert = ({ username, onLogout }: BusAlertProps) => {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-white/20 p-2 rounded-full">
-              <Bus className="w-6 h-6" />
+              <img src={ueesLogo} alt="UEES Logo" className="w-8 h-8 rounded object-cover" />
             </div>
             <div>
               <h1 className="text-lg font-bold">BUEES Go</h1>
